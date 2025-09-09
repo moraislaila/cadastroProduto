@@ -1,0 +1,1 @@
+nesse projeto, vou fazer um cadastro de produto, onde cada produto adicionado na tela de cadastro, será jogado para a tabela, de acordo com as informações escritas.

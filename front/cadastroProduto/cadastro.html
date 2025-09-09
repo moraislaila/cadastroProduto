@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="script.js"></script>
+
+    <style>
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+
+
+    <div id="tabela">
+        <button onclick="cadastroProduto()">cadastro produto</button>
+        <br><br>
+        <table border="1">
+            <tbody>
+                <tr>
+                    <th>Nome</th>
+                    <th>preço</th>
+                    <th>quantidade</th>
+                    <th>valor total</th>
+                </tr>
+           
+        </table>
+
+
+    </div>
+
+    <div id="cadastro" class="hidden">
+        <h2>cadastro de produto</h2>
+        nome: <input id="nome" type="text"> <br><br>
+        preço: <input id="preco" type="number"> <br><br>
+        quantidade: <input id="quantidade" type="number"> <br><br>
+
+        <button onclick="salvar()">salvar</button>
+        <button onclick="cancelar()">cancelar</button>
+
+    </div>
+</body>
+
+</html>
