@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<!-- saved from url=(0085)https://ava.sesisenai.org.br/pluginfile.php/1605744/mod_resource/content/1/index.html -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>  
+        .hidden {display:none} 
+    </style>
+</head>
+<body>
+
+
+<table border="1">
+    <tbody><tr>
+        <th>Nome</th>
+        <th>Matricula</th>
+        <th>Nota</th>
+        <th>Situação</th>
+    </tr>
+    </tbody><tbody id="corpo"><tr>  
+        <td>Ana</td> 
+        <td>1111</td> 
+        <td>5</td> 
+        <td>Reprovado</td>      
+    </tr><tr>  
+        <td>Maria</td> 
+        <td>2222</td> 
+        <td>9</td> 
+        <td>Aprovado</td>      
+    </tr><tr>  
+        <td>Fabio</td> 
+        <td>3333</td> 
+        <td>8</td> 
+        <td>Aprovado</td>      
+    </tr><tr>  
+        <td>Roger</td> 
+        <td>4444</td> 
+        <td>3</td> 
+        <td>Reprovado</td>      
+    </tr></tbody>
+</table>
+
+<br><br>
+<div id="sumir">
+    <button onclick="sumir()">Sumir</button>
+</div>
+<br><br>
+<div id="aparecer" class="hidden">
+    <button onclick="aparecer()">Aparecer</button>    
+</div>
+
+
+
+<script>
+
+function sumir() {
+    document.getElementById("corpo").classList.add('hidden')
+    document.getElementById("aparecer").classList.remove('hidden')
+}
+
+function aparecer() {
+    document.getElementById("corpo").classList.remove('hidden')
+    document.getElementById("sumir").classList.remove('hidden')
+    document.getElementById("aparecer").classList.add('hidden')
+}
+
+
+// Criando os vetores
+let nomes = ["Ana", "Maria", "Fabio", "Roger"]
+let matriculas =[1111,2222,3333,4444]
+let notas = [5,9,8,3]
+let situacao = ["Reprovado", "Aprovado", "Aprovado" ,"Reprovado"]
+
+const corpo = document.getElementById('corpo')
+for (let i = 0; i < nomes.length ; i++) {
+    const linha = document.createElement("tr")
+    linha.innerHTML = `  
+        <td>${nomes[i]}</td> 
+        <td>${matriculas[i]}</td> 
+        <td>${notas[i]}</td> 
+        <td>${situacao[i]}</td>      
+    `
+    corpo.appendChild(linha)
+
+}
+
+
+
+</script>
+
+
+    
+
+</body></html>
