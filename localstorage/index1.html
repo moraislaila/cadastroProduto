@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="ing">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>  
+        .hidden {display:none} 
+    </style>
+
+</head>
+<body>
+        <h1>Cadastro bancário</h1>
+        <div id="cadastro">
+            <h2>Criação da conta</h2>
+            <p>Nome: <input type="text" placeholder="nome do titular"></p>
+            <p>Agência: <input type="number" placeholder="número da agência"></p>
+            <p>Número: <input type="number" placeholder="número da conta do titular"></p>
+            <p>Email: <input type="text" placeholder="Email do titular"></p>
+            <p>Senha: <input type="password" ></p>
+            <p>saldo: <input type="number" placeholder="Saldo da conta"></p>
+            <button onclick="Cadastrar()">Cadastrar</button>
+        </div>
+ 
+        <div id="login" class="hidden">
+            <h2>Login</h2>
+            <p>Agência: <input type="number" placeholder="Número da agência"></p>
+            <P>Número: <input type="number" placeholder="Número da conta"></P>
+            <p>Senha: <input type="password"></p>
+            <button onclick="acessar()">Acessar</button>
+        </div>
+
+        <div id="saldo" class="hidden" >
+            <h1>Bem vindo!</h1>
+            <button onclick="vizualizar()">sacar</button>
+            <button onclick="depositar()">depositar</button>
+            <button onclick="sair()">sair</button>
+        
+        </div>
+    
+
+        <script>
+    const prompt  = require("prompt-sync")()
+    let nome = document.getElementById("Nome")
+    let agencia = document.getElementById("Agência")
+    let numero = document.getElementById("Número")
+    let email = document.getElementById("Senha")
+    let saldo = document.getElementById("saldo")
+
+    function Cadastrar(){
+        document.getElementById("login").classList.remove("hidden")
+        document.getElementById("cadastro").classList.add("hidden")
+    let contaBancaria ={ 
+        nome : "Nome",
+        agencia : "agência",
+        numero : "Número",
+        email : "Email",
+        senha : "Senha",
+        saldo : "Saldo"
+       }
+       alert("login cadastrado com sucesso!")
+
+       localStorage.setItem(JSON.stringify(contaBancaria))
+
+    }
+
+    function acessar(){
+        alert("bem vindo!")
+        document.getElementById("login").classList.add("hidden")
+        document.getElementById("cadastro").classList.add("hidden")
+        document.getElementById("saldo").classList.remove("hidden")
+    }
+        </script>
+</body>
+</html>
