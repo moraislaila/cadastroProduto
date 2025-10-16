@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="ing">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .hidden {
+            display: none
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        input {
+            width: 100%;
+            padding: 8px;
+            margin: 5px 0 15px 0;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin: 5px;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        h1,
+        h2 {
+            color: #333;
+        }
+    </style>
+
+</head>
+
+<body>
+    <div id="login">
+        <h2>Login</h2>
+        <p>Agência: <input type="number" id="ag" placeholder="Número da agência"></p>
+        <P>Número: <input type="number" id="numConta" placeholder="Número da conta"></P>
+        <p>Senha: <input type="password" id="senhaConta"></p>
+        <button onclick="acessar()">Acessar</button>
+        <button onclick="Cadastro()">cadastrar</button>
+    </div>
+
+    <div id="cadastro" class="hidden">
+        <h2>Criação da conta</h2>
+        <p>Nome: <input type="text" id="nome" placeholder="nome do titular"></p>
+        <p>Agência: <input type="number" id="agencia" placeholder="número da agência"></p>
+        <p>Número: <input type="number" id="numero" placeholder="número da conta do titular"></p>
+        <p>Email: <input type="text" id="email" placeholder="Email do titular"></p>
+        <p>Senha: <input type="password" id="senha"></p>
+        <button onclick="Cadastrar()">cadastrar</button>
+        <button onclick="cancelar()">cancelar</button>
+
+
+    </div>
+
+    <div id="saldo" class="hidden">
+        <h2 id="bemVindo">Bem vindo!</h2>
+        <p id="saldoo"></p>
+        <button onclick="saque()">sacar</button>
+        <button onclick="depositar()">depositar</button>
+        <button onclick="sair()">sair</button>
+
+    </div>
+    <script>
+
+
+        let contaBancaria
+        let saldoo = document.getElementById("saldoo")
+        let bemVindo = document.getElementById("bemVindo")
+
+        function Cadastrar() {
+            let contaNome = document.getElementById("nome").value
+            let contaAgencia = document.getElementById("agencia").value
+            let contaNumero = document.getElementById("numero").value
+            let contaEmail = document.getElementById("email").value
+            let contaSenha = document.getElementById("senha").value
+
+            contaBancaria = { 
+                contaNome: nome.value,
+                contaAgencia: agencia.value,
+                contaNumero: numero.value,
+                contaEmail: email.value,
+                contaSenha: senha.value,
+                saldo: 1000,
+                sacar: function sacar(valor) {
+                    if (valor < this.saldo) {
+                        this.saldo = this.saldo - valor
+                        alert("Saque realizado com sucesso")
+                    } else {
+                        alert("Saldo insuficiente")
+                    }
+
+
+                }
+
+            }
+
+            alert("cadastro feito com sucesso")
+
+            localStorage.setItem(contaNumero, JSON.stringify(contaBancaria));
+            document.getElementById("cadastro").classList.add("hidden")
+            document.getElementById("login").classList.remove("hidden")
+
+
+        }
+
+        function acessar() {
+
+            let ag = document.getElementById("ag")
+            let conta = document.getElementById("numConta")
+            let senha = document.getElementById("senhaConta")
+
+            contaBancaria = JSON.parse(localStorage.getItem(conta.value))
+
+            if (contaBancaria.contaSenha == senha.value) {
+                alert("Acesso concedido")
+
+                saldoo.innerText = "Saldo atual: R$" + contaBancaria.saldo
+                document.getElementById("saldo").classList.remove("hidden")
+                document.getElementById("login").classList.add("hidden")
+                document.getElementById("cadastro").classList.add("hidden")
+                bemVindo.innerText = "bem vindo "+ contaBancaria.contaNome
+
+            } else {
+                alert("Credenciais inválidas")
+            }
+
+        }
+
+        function cancelar() {
+            document.getElementById("cadastro").classList.add("hidden")
+            document.getElementById("login").classList.remove("hidden")
+        }
+
+        function sair() {
+            document.getElementById("saldo").classList.add("hidden")
+            document.getElementById("login").classList.remove("hidden")
+        }
+
+        function Cadastro() {
+            document.getElementById("cadastro").classList.remove("hidden")
+            document.getElementById("login").classList.add("hidden")
+        }
+
+        function saque() {
+
+            let valor = parseFloat(prompt("Digite o valor que você quer sacar"))
+
+            contaBancaria = { //precisou reconstuir o objeto, pq a function não estava armazenada no localstorage, por isso precisou repetir, porem não da erro mesmo ela tendo o msm nome.
+                contaNome: contaBancaria.contaNome,
+                contaAgencia: contaBancaria.contaAgencia,
+                contaNumero: contaBancaria.contaNumero,
+                contaEmail: contaBancaria.contaEmail,
+                contaSenha: contaBancaria.contaSenha,
+                saldo: contaBancaria.saldo,
+                sacar: function sacar(valor) { // dento do obejeto pode conter variaveis e funções
+                    if (valor < this.saldo) {
+                        this.saldo = this.saldo - valor //this = este
+                        alert("Saque realizado com sucesso")
+                    } else {
+                        alert("Saldo insuficiente")
+                    }
+
+                }
+            }
+            contaBancaria.sacar(valor)
+            saldoo.innerText = "Saldo atual: R$" + contaBancaria.saldo //inertext = ele está pegando o texto do saldo e adicionado
+
+
+        }
+
+    </script>
+</body>
+
+</html>
